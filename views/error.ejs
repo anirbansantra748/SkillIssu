@@ -1,0 +1,100 @@
+<% layout("/layouts/boilerplate") %>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+<div class="error-container">
+  <h1 class="glitch">
+    <span aria-hidden="true">ERROR <%= error.status %></span>
+    <%= error.status %>
+    <span aria-hidden="true"><%= error.status %></span>
+  </h1>
+
+  <p class="error-message">
+    <%= error.message || "Something went wrong. The matrix is unstable!" %>
+  </p>
+
+  <a href="/home" class="btn-go-home"><i class="fas fa-home"></i> Go Back Home</a>
+</div>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+  body {
+    background-color: #111;
+    color: #fff;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .glitch {
+    font-size: 4rem;
+    font-weight: bold;
+    position: relative;
+    color: #ff1744;
+    animation: glitch 1s infinite;
+  }
+
+  .glitch:before,
+  .glitch:after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.8;
+  }
+
+  .glitch:before {
+    color: #0ff;
+    transform: translate(-2px, -2px);
+    clip: rect(24px, 550px, 90px, 0);
+  }
+
+  .glitch:after {
+    color: #ff0;
+    transform: translate(2px, 2px);
+    clip: rect(85px, 550px, 140px, 0);
+  }
+
+  @keyframes glitch {
+    0% { transform: skew(0deg); }
+    20% { transform: skew(-2deg); }
+    40% { transform: skew(2deg); }
+    60% { transform: skew(-2deg); }
+    80% { transform: skew(2deg); }
+    100% { transform: skew(0deg); }
+  }
+
+  .error-message {
+    font-size: 1.2rem;
+    margin: 20px 0;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .btn-go-home {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #ff1744, #d500f9);
+    border: none;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(255, 23, 68, 0.5);
+    transition: all 0.3s ease;
+  }
+
+  .btn-go-home:hover {
+    background: linear-gradient(135deg, #d500f9, #ff1744);
+    box-shadow: 0px 6px 15px rgba(255, 23, 68, 0.7);
+  }
+</style>

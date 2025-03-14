@@ -1,0 +1,54 @@
+/* Problem Page Specific Styles */
+
+
+#problem-page {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+  }
+
+  #problem-page #code-editor {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    height: 400px;
+    resize: vertical;
+    white-space: pre;
+    overflow: auto;
+  }
+
+  #problem-page .container {
+    margin-top: 20px;
+  }
+
+  #problem-page .btn-submit {
+    display: block;
+    width: 100%;
+  }
+
+  #problem-page .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    gap: 10px;
+  }
+
+  #problem-page .action-buttons .btn {
+    flex: 1;
+  }
+
+  /* Discussion Page Styles */
+#discussion-page .card {
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+
+#discussion-page pre {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+#discussion-page .text-muted {
+  font-size: 0.9rem;
+}

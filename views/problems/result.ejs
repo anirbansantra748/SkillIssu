@@ -1,0 +1,67 @@
+<% layout("/layouts/boilerplate") %>
+
+<h2>Submission Result</h2>
+
+<% if (errorMessage) { %>
+    <div class="alert alert-danger">
+        <h3>⚠️ Error</h3>
+        <p><%= errorMessage %></p>
+    </div>
+<% } else { %>
+    <% if (isPassed) { %>
+        <div class="alert alert-success">
+            <h3>✅ All test cases passed! 🎉</h3>
+            <p>Your solution is correct and meets the expected output.</p>
+        </div>
+    <% } else { %>
+        <div class="alert alert-danger">
+            <h3>❌ Some test cases failed.</h3>
+            <p>Your solution did not pass all test cases. Please review the details below.</p>
+        </div>
+
+        <% if (result.failed_cases && result.failed_cases.length > 0) { %>
+            <h3>Failed Test Cases:</h3>
+            <ul class="list-group">
+                <% result.failed_cases.forEach((test, index) => { %>
+                    <li class="list-group-item">
+                        <strong>Test Case <%= index + 1 %>:</strong><br>
+                        <strong>Expected:</strong> <code><%= test.expected_output %></code> <br>
+                        <strong>Got:</strong> <code class="text-danger"><%= test.actual_output %></code>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <div class="alert alert-warning">
+                <p>No failed test cases were detected, but correctness is not confirmed.</p>
+            </div>
+        <% } %>
+
+        <% if (result.error_details) { %>
+            <h3>Error Details:</h3>
+            <div class="alert alert-warning">
+                <pre><%= result.error_details %></pre>
+            </div>
+        <% } %>
+
+        <% if (result.improvements) { %>
+            <h3>Suggested Improvements:</h3>
+            <div class="alert alert-info">
+                <pre><%= result.improvements %></pre>
+            </div>
+        <% } %>
+
+        <% if (result.detailed_analysis) { %>
+            <h3>Detailed Analysis:</h3>
+            <div class="alert alert-light">
+                <pre><%= result.detailed_analysis %></pre>
+            </div>
+        <% } %>
+
+        <% if (result.recommendations) { %>
+            <h3>Recommendations:</h3>
+            <div class="alert alert-primary">
+                <pre><%= result.recommendations %></pre>
+            </div>
+        <% } %>
+    <% } %>
+<% } %>

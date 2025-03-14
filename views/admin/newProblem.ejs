@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add New Problem</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="d-flex align-items-center justify-content-center" style="min-height: 100vh; background: #121212;">
+    <div class="container p-4 rounded"
+        style="max-width: 700px; background: #1c1c1e; box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);">
+
+        <h2 class="text-center mb-4 fw-bold" style="color: #f8f9fa;">➕ Add New Problem</h2>
+
+        <form action="/problems/new" method="POST" class="p-3">
+            <!-- Problem Number -->
+            <div class="mb-3">
+                <label for="number" class="form-label fw-semibold" style="color: #f8f9fa;">🔢 Problem Number</label>
+                <input type="number" class="form-control bg-dark text-light border-0 p-2" id="number"
+                    name="problem[number]" required>
+            </div>
+
+            <!-- Title -->
+            <div class="mb-3">
+                <label for="title" class="form-label fw-semibold" style="color: #f8f9fa;">📌 Problem Title</label>
+                <input type="text" class="form-control bg-dark text-light border-0 p-2" id="title"
+                    name="problem[title]" required>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+                <label for="description" class="form-label fw-semibold" style="color: #f8f9fa;">📝 Description</label>
+                <textarea class="form-control bg-dark text-light border-0 p-2" id="description"
+                    name="problem[description]" rows="4" required></textarea>
+            </div>
+
+            <!-- Examples -->
+            <div class="mb-3">
+                <label for="examples" class="form-label fw-semibold" style="color: #f8f9fa;">💡 Examples (JSON)</label>
+                <textarea class="form-control bg-dark text-light border-0 p-2" id="examples"
+                    name="problem[examples]" rows="4" required></textarea>
+            </div>
+
+            <!-- Constraints -->
+            <div class="mb-3">
+                <label for="constraints" class="form-label fw-semibold" style="color: #f8f9fa;">⚠️ Constraints</label>
+                <textarea class="form-control bg-dark text-light border-0 p-2" id="constraints"
+                    name="problem[constraints]" rows="3" required></textarea>
+            </div>
+
+            <!-- Test Cases -->
+            <div class="mb-3">
+                <label for="testCases" class="form-label fw-semibold" style="color: #f8f9fa;">🛠️ Test Cases (JSON)</label>
+                <textarea class="form-control bg-dark text-light border-0 p-2" id="testCases"
+                    name="problem[testCases]" rows="4" required></textarea>
+            </div>
+
+            <!-- Categories -->
+            <div class="mb-3">
+                <label for="categories" class="form-label fw-semibold" style="color: #f8f9fa;">🏷️ Categories</label>
+                <input type="text" class="form-control bg-dark text-light border-0 p-2" id="categories"
+                    name="problem[categories]" required>
+            </div>
+
+            <!-- Difficulty -->
+            <div class="mb-3">
+                <label for="tags" class="form-label fw-semibold" style="color: #f8f9fa;">🎯 Difficulty</label>
+                <select class="form-control bg-dark text-light border-0 p-2" id="tags"
+                    name="problem[tags]" required>
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                </select>
+            </div>
+
+            <!-- Code Templates -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold" style="color: #f8f9fa;">💻 Code Templates</label>
+                <div class="form-group">
+                    <label for="templateJava" style="color: #f8f9fa;">☕ Java</label>
+                    <textarea class="form-control bg-dark text-light border-0 p-2" id="templateJava"
+                        name="problem[templates][java]" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="templatePython" style="color: #f8f9fa;">🐍 Python</label>
+                    <textarea class="form-control bg-dark text-light border-0 p-2" id="templatePython"
+                        name="problem[templates][python3]" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="templateJavascript" style="color: #f8f9fa;">⚡ JavaScript</label>
+                    <textarea class="form-control bg-dark text-light border-0 p-2" id="templateJavascript"
+                        name="problem[templates][javascript]" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="templateCpp" style="color: #f8f9fa;">🔷 C++</label>
+                    <textarea class="form-control bg-dark text-light border-0 p-2" id="templateCpp"
+                        name="problem[templates][cpp]" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="templateC" style="color: #f8f9fa;">🔴 C</label>
+                    <textarea class="form-control bg-dark text-light border-0 p-2" id="templateC"
+                        name="problem[templates][c]" rows="4" required></textarea>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-outline-success w-100 fw-bold py-2">
+                ✅ Create Problem
+            </button>
+        </form>
+    </div>
+</body>
+</html>

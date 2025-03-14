@@ -1,0 +1,73 @@
+
+<% layout("/layouts/boilerplate") %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+        }
+        .navbar {
+            box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
+        }
+        .container {
+            max-width: 600px;
+        }
+        .card {
+            background-color: #1e1e1e;
+            border: 1px solid #292929;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: scale(1.02);
+            border-color: #ffa500;
+            box-shadow: 0px 0px 10px rgba(255, 165, 0, 0.6);
+        }
+        .list-group-item {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            border: 1px solid #292929;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        .list-group-item:hover {
+            background-color: #292929;
+            color: #ffa500;
+            transform: scale(1.02);
+        }
+        .text-danger {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="text-center">
+            <h2 class="text-warning">⚡ Admin Control Panel</h2>
+            <p class="text-light">Manage problems, contests, courses, and store items efficiently.</p>
+        </div>
+
+        <div class="list-group mt-4">
+            <a href="/admin/problems/new" class="list-group-item list-group-item-action">
+                <i class="fas fa-code"></i> Create New Problem
+            </a>
+            <a href="/admin/contests/new" class="list-group-item list-group-item-action">
+                <i class="fas fa-trophy"></i> Create New Contest
+            </a>
+            <a href="/admin/courses/new" class="list-group-item list-group-item-action">
+                <i class="fas fa-book"></i> Create New Course
+            </a>
+            <a href="/admin/logout" class="list-group-item list-group-item-action text-danger">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+</body>
+</html>

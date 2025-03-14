@@ -1,0 +1,35 @@
+<% layout("/layouts/boilerplate") %>
+
+<body class="d-flex align-items-center justify-content-center" style="min-height: 100vh; background: #121212;">
+    <div class="container p-4 rounded"
+        style="max-width: 600px; background: #1c1c1e; box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);">
+
+        <h2 class="text-center mb-4 fw-bold" style="color: #f8f9fa;">🚀 Create New Contest</h2>
+
+        <form action="/contests/new" method="POST" class="p-3">
+            <div class="mb-3">
+                <label for="title" class="form-label fw-semibold" style="color: #f8f9fa;">📌 Contest Title</label>
+                <input type="text" class="form-control bg-dark text-light border-0 p-2" id="title" name="title" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="number" class="form-label fw-semibold" style="color: #f8f9fa;">🔢 Contest Number</label>
+                <input type="number" class="form-control bg-dark text-light border-0 p-2" id="number" name="number" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label fw-semibold" style="color: #f8f9fa;">📝 Description</label>
+                <textarea class="form-control bg-dark text-light border-0 p-2" id="description" name="description" rows="3" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="problems" class="form-label fw-semibold" style="color: #f8f9fa;">💡 Problems (Comma separated IDs)</label>
+                <input type="text" class="form-control bg-dark text-light border-0 p-2" id="problems" name="problems" placeholder="Enter Problem Numbers">
+            </div>
+
+            <button type="submit" class="btn btn-outline-primary w-100 fw-bold py-2">
+                🚀 Create Contest
+            </button>
+        </form>
+    </div>
+</body>

@@ -1,0 +1,90 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-5 text-light">
+  <h1 class="text-center text-uppercase fw-bold">
+    <%= contest.title %> - Contest
+  </h1>
+  <p class="text-center text-secondary"><%= contest.description %></p>
+
+  <% if (!canStart) { %>
+  <form action="/contests/current/submit/<%= contest._id %>" method="POST">
+    <div class="list-group mt-4">
+      <% contest.problems.forEach(problem => { %>
+      <a
+        href="/problems/<%= problem._id %>"
+        class="list-group-item list-group-item-action bg-dark text-light border-secondary shadow-sm"
+      >
+        <h5 class="mb-1">
+          <% if (user) { const solved = user.problemsSolved.find(p =>
+          p.problemId.toString() === problem._id.toString()); if (solved &&
+          solved.status === 'Success') { %> ✓ <% } else { %> ✗ <% } } else { %>
+          🔒 <% } %> <%= problem.title %>
+        </h5>
+      </a>
+      <% }) %>
+    </div>
+    <% if (!hasSubmitted) { %>
+    <div class="text-center mt-4">
+      <button type="submit" class="btn btn-lg btn-success w-50 py-3 fw-bold">
+        Submit Contest
+      </button>
+    </div>
+    <% }%>
+    <br />
+    <h4 class="text-center mt-3">
+      <a
+        href="/contests/current/leaderboard/<%= contest._id %>"
+        class="text-warning text-decoration-none"
+        >Leaderboard
+      </a>
+    </h4>
+  </form>
+  <% if (isadmin) { %>
+    <div class="text-center mt-3">
+      <a href="/contests/<%= contest._id %>/edit" class="btn btn-outline-light me-2">
+        <i class="fas fa-edit"></i> Edit
+      </a>
+      <form action="/contests/<%= contest._id %>/delete?_method=DELETE" method="POST" class="d-inline">
+        <button type="submit" class="btn btn-outline-danger">
+          <i class="fas fa-trash"></i> Delete
+        </button>
+      </form>
+    </div>
+  <% } %> <% } else { %>
+  <div class="text-center mt-5">
+    <p class="fs-4">
+      The contest will start on <%= contest.date.toDateString() %> at
+      <span class="text-warning">7:00 PM</span>.
+    </p>
+    <h6 class="text-muted">
+      <%= questionCount %> Questions Will appear Sunday after 7 PM.
+    </h6>
+  </div>
+  <% } %>
+</div>
+
+<style>
+  body {
+    background-color: #121212;
+    color: white;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  .list-group-item:hover {
+    background-color: #1e1e1e;
+    transform: scale(1.02);
+    transition: all 0.3s ease;
+  }
+  .btn-success {
+    background: linear-gradient(135deg, #28a745, #1e7e34);
+    border: none;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+  .btn-success:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(40, 167, 69, 0.5);
+  }
+  .text-warning {
+    font-weight: bold;
+  }
+</style>

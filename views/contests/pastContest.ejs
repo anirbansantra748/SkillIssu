@@ -1,0 +1,39 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-5">
+  <h1 class="text-center"><%= contest.title %> - Problems</h1>
+  <p class="text-light text-center"><%= contest.description %></p>
+
+  <div class="list-group mt-4">
+    <% contest.problems.forEach(problem => { %>
+    <a
+      href="/problems/<%= problem._id %>"
+      class="list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-dark text-light"
+    >
+      <div>
+        <h5 class="mb-1"><%= problem.title %></h5>
+      </div>
+      <i class="fas fa-arrow-right"></i>
+    </a>
+    <% }) %>
+  </div>
+  <h4 class="text-center mt-3">
+    <a
+      href="/contests/current/leaderboard/<%= contest._id %>"
+      class="text-warning text-decoration-none"
+      >Leaderboard</a
+    >
+  </h4>
+</div>
+
+<style>
+  body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  .list-group-item:hover {
+    background-color: #343a40;
+    color: white;
+  }
+</style>

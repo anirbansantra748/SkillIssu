@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillIssu - Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        body {
+            background: linear-gradient(135deg, #0d0d0d, #1a1a2e);
+            font-family: 'Orbitron', sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 900px;
+            background: rgba(20, 20, 50, 0.9);
+            border: 2px solid #00ffee;
+            box-shadow: 0 0 15px rgba(0, 255, 238, 0.6);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background: radial-gradient(circle, #00ffee, #1a1a2e);
+            box-shadow: 0 0 10px #00ffee;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #000;
+            margin: auto;
+        }
+
+        .stats-container {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .bar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .bar {
+            height: 20px;
+            border-radius: 10px;
+            text-align: right;
+            padding-right: 10px;
+            font-weight: bold;
+            color: black;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: var(--width);
+            background: linear-gradient(90deg, #00ffee, #0088ff);
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+        }
+
+        .problems {
+            margin-top: 20px;
+            text-align: left;
+            background: rgba(0, 255, 238, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .problems li {
+            list-style: none;
+            padding: 5px;
+            font-size: 1.1rem;
+        }
+
+        .problems li a {
+            text-decoration: none;
+            color: #00ffee;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .problems li a:hover {
+            color: #ff0;
+            text-shadow: 0 0 8px #ff0;
+        }
+
+        /* Floating Interactive Pet */
+        .pet {
+            position: absolute;
+            bottom: 20px;
+            left: 50px;
+            width: 50px;
+            height: 50px;
+            background: url('https://media.tenor.com/-g-bRmUm09EAAAAi/cat.gif') no-repeat center;
+            background-size: contain;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="avatar">⚡</div>
+        <h2><%= username %></h2>
+        <div>🌍 Country: <%= Country %></div>
+        <div>🏆 Points: <%= points %></div>
+        <div>📊 Total Submissions: <%= totalSubmissions %></div>
+
+        <div class="stats-container">
+            <h3>Problem Solving Stats:</h3>
+            <div class="bar-container">
+                <div class="bar text-light" style="--width: calc(<%= stats.easy %> * 10%)">Easy: <%= stats.easy %></div>
+                <div class="bar text-light" style="--width: calc(<%= stats.medium %> * 10%)">Medium: <%= stats.medium %></div>
+                <div class="bar text-light" style="--width: calc(<%= stats.hard %> * 10%)">Hard: <%= stats.hard %></div>
+            </div>
+        </div>
+
+        <div class="problems">
+            <h3>All Solved Problems:</h3>
+            <ul>
+                <% problemsSolved.forEach(problem => { %>
+                    <li>✅ <a href="/problems/<%= problem.problemId %>" target="_blank"><%= problem.title %></a></li>
+                <% }); %>
+            </ul>
+        </div>
+    </div>
+
+    <div class="pet"></div> <!-- Cute floating pet -->
+
+</body>
+</html>

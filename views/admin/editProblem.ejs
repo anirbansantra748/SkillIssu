@@ -1,0 +1,115 @@
+<% layout("/layouts/boilerplate") %>
+<br>
+    <style>
+        /* 🔥 Modern Dark Theme */
+        body {
+            background-color: #0d1117;
+            color: #e6edf3;
+            font-family: 'Poppins', sans-serif;
+        }
+        .container {
+            max-width: 750px;
+            background-color: #161b22;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+            margin-top: 50px;
+        }
+        h2 {
+            color: #58a6ff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: 600;
+            margin-top: 15px;
+            color: #c9d1d9;
+        }
+        textarea, input, select {
+            background-color: #21262d;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 15px;
+            transition: all 0.2s ease-in-out;
+        }
+        textarea:focus, input:focus, select:focus {
+            border-color: #58a6ff;
+            box-shadow: 0 0 5px rgba(88, 166, 255, 0.5);
+        }
+        .btn {
+            border-radius: 8px;
+            font-size: 16px;
+            padding: 10px;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-primary {
+            background-color: #238636;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #2ea043;
+        }
+        /* Smooth fade-in effect */
+        .container {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+<body class="mt-2">
+    <div class="container">
+        <h2><i class="fa-solid fa-edit"></i> Edit Problem</h2>
+
+        <form action="/problems/<%= problem._id %>/edit?_method=PUT" method="POST">
+            <label for="number"><i class="fa-solid fa-hashtag"></i> Problem Number</label>
+            <input type="number" id="number" name="problem[number]" class="form-control" value="<%= problem.number %>" required>
+
+            <label for="title"><i class="fa-solid fa-heading"></i> Title</label>
+            <input type="text" id="title" name="problem[title]" class="form-control" value="<%= problem.title %>" required>
+
+            <label for="description"><i class="fa-solid fa-align-left"></i> Description</label>
+            <textarea id="description" name="problem[description]" class="form-control" rows="4" required><%= problem.description %></textarea>
+
+            <label for="examples"><i class="fa-solid fa-list"></i> Examples (JSON format)</label>
+            <textarea id="examples" name="problem[examples]" class="form-control" rows="4" required><%= JSON.stringify(problem.examples, null, 2) %></textarea>
+
+            <label for="constraints"><i class="fa-solid fa-exclamation-circle"></i> Constraints</label>
+            <textarea id="constraints" name="problem[constraints]" class="form-control" rows="3" required><%= problem.constraints %></textarea>
+
+            <label for="testCases"><i class="fa-solid fa-vial"></i> Test Cases (JSON format)</label>
+            <textarea id="testCases" name="problem[testCases]" class="form-control" rows="4" required><%= JSON.stringify(problem.testCases, null, 2) %></textarea>
+
+            <label for="categories"><i class="fa-solid fa-folder"></i> Categories</label>
+            <input type="text" id="categories" name="problem[categories]" class="form-control" value="<%= problem.categories %>" required>
+
+            <label for="tags"><i class="fa-solid fa-signal"></i> Difficulty</label>
+            <select id="tags" name="problem[tags]" class="form-control" required>
+                <option value="Easy" <%= problem.tags === 'Easy' ? 'selected' : '' %>>Easy</option>
+                <option value="Medium" <%= problem.tags === 'Medium' ? 'selected' : '' %>>Medium</option>
+                <option value="Hard" <%= problem.tags === 'Hard' ? 'selected' : '' %>>Hard</option>
+            </select>
+
+            <label for="templateJava"><i class="fa-brands fa-java"></i> Java Template</label>
+            <textarea id="templateJava" name="problem[templates][java]" class="form-control" rows="4" required><%= problem.templates.java %></textarea>
+
+            <label for="templatePython"><i class="fa-brands fa-python"></i> Python Template</label>
+            <textarea id="templatePython" name="problem[templates][python3]" class="form-control" rows="4" required><%= problem.templates.python3 %></textarea>
+
+            <label for="templateJavascript"><i class="fa-brands fa-js"></i> JavaScript Template</label>
+            <textarea id="templateJavascript" name="problem[templates][javascript]" class="form-control" rows="4" required><%= problem.templates.javascript %></textarea>
+
+            <label for="templateCpp"><i class="fa-solid fa-code"></i> C++ Template</label>
+            <textarea id="templateCpp" name="problem[templates][cpp]" class="form-control" rows="4" required><%= problem.templates.cpp %></textarea>
+
+            <label for="templateC"><i class="fa-solid fa-terminal"></i> C Template</label>
+            <textarea id="templateC" name="problem[templates][c]" class="form-control" rows="4" required><%= problem.templates.c %></textarea>
+            <br>
+            <button type="submit" class="btn btn-primary w-100"><i class="fa-solid fa-check"></i> Update Problem</button>
+        </form>
+    </div>
+</body>

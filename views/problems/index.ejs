@@ -1,0 +1,391 @@
+<% layout("/layouts/boilerplate") %>
+<br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeMaster - Problems</title>
+    <link href="https://cdn.jsdelivr.net/npm/slim-select@1.27.1/dist/slimselect.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent-blue: #007bff;
+            --accent-green: #28a745;
+            --accent-red: #dc3545;
+            --easy: #00b8a3;
+            --medium: #ffc01e;
+            --hard: #ff375f;
+            --border-radius: 4px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.5rem 2rem 0.5rem 1rem;
+            background: var(--card-bg);
+            border: 1px solid #3d3d3d;
+            border-radius: var(--border-radius);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .filter-group {
+            position: relative;
+            display: inline-block;
+        }
+
+        .filter-select {
+            padding: 0.5rem 2rem 0.5rem 1rem;
+            background: var(--card-bg);
+            border: 1px solid #3d3d3d;
+            border-radius: var(--border-radius);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            appearance: none;
+            cursor: pointer;
+            min-width: 120px;
+        }
+
+        .filter-select.difficulty {
+            padding-left: 1.5rem;
+        }
+
+        .difficulty-option {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .difficulty-option::before {
+            content: "";
+            position: absolute;
+            left: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .difficulty-option[value="Easy"]::before { background: var(--easy) }
+        .difficulty-option[value="Medium"]::before { background: var(--medium) }
+        .difficulty-option[value="Hard"]::before { background: var(--hard) }
+
+        /* Enhanced Tags Select */
+        .tags-select-wrapper {
+            position: relative;
+            min-width: 200px;
+        }
+
+        .tag-select {
+            padding: 0.5rem 1rem;
+            min-height: 40px;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+
+        .tag-select option {
+            padding: 0.5rem 1rem;
+            margin: 2px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tag-select option:hover {
+            background: rgba(108, 117, 125, 0.3);
+        }
+
+        .tag-select option:checked {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        /* SlimSelect Overrides */
+        .ss-main {
+            background: var(--card-bg) !important;
+            border: 1px solid #3d3d3d !important;
+            border-radius: var(--border-radius) !important;
+            min-height: 40px !important;
+        }
+
+        .ss-multi-selected {
+            border: none !important;
+            padding: 0.25rem 0.5rem !important;
+        }
+
+        .ss-values .ss-value {
+            background: var(--accent-blue) !important;
+            color: white !important;
+            border-radius: 12px !important;
+            margin: 2px !important;
+        }
+
+        .ss-values .ss-value button:hover {
+            background: transparent !important;
+        }
+
+        .ss-content {
+            background: var(--card-bg) !important;
+            border: 1px solid #3d3d3d !important;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .ss-search input {
+            background: var(--bg-color) !important;
+            color: var(--text-primary) !important;
+            border-color: #3d3d3d !important;
+        }
+
+        .ss-list .ss-option:hover {
+            background: rgba(108, 117, 125, 0.3) !important;
+        }
+
+        .ss-list .ss-option.ss-highlighted {
+            background: var(--accent-blue) !important;
+            color: white !important;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            background: var(--accent-blue);
+            border: none;
+            border-radius: var(--border-radius);
+            color: white;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .filter-btn:hover {
+            background: #0056b3;
+        }
+
+        .problems-list {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .problem-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #3d3d3d;
+            gap: 1.5rem;
+        }
+
+        .problem-item:hover {
+            background: #363636;
+        }
+
+        .status {
+            width: 40px;
+            text-align: center;
+        }
+
+        .status.solved { color: var(--accent-green) }
+        .status.unsolved { color: var(--accent-red) }
+        .status.login { color: var(--text-secondary) }
+
+        .problem-title {
+            flex: 2;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .problem-title:hover {
+            color: var(--accent-blue);
+        }
+
+        .difficulty {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .difficulty.easy { color: var(--easy) }
+        .difficulty.medium { color: var(--medium) }
+        .difficulty.hard { color: var(--hard) }
+
+        .tags {
+            flex: 2;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(108, 117, 125, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .difficulty-option[value="Easy"] { color: var(--easy); }
+        .difficulty-option[value="Medium"] { color: var(--medium); }
+        .difficulty-option[value="Hard"] { color: var(--hard); }
+
+        .tag-option[value="Array"] { color: #ff9800; }
+        .tag-option[value="String"] { color: #03a9f4; }
+        .tag-option[value="Graph"] { color: #9c27b0; }
+        .tag-option[value="Dynamic Programming"] { color: #4caf50; }
+        .tag-option[value="Binary Search"] { color: #ff5722; }
+        .tag-option[value="Hash Table"] { color: #673ab7; }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+
+        </div>
+
+<!-- Include FontAwesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<form action="/problems" method="GET" class="filters">
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" name="search" placeholder="Search problems..." class="search-input">
+        <i class="fas fa-search search-icon"></i>
+    </div>
+
+    <!-- Difficulty Dropdown -->
+    <div class="filter-group">
+        <div class="select-wrapper">
+            <select name="difficulty" class="filter-select difficulty">
+                <option value="">All Levels</option>
+                <option value="Easy" class="difficulty-option">🟢 Easy</option>
+                <option value="Medium" class="difficulty-option">🟡 Medium</option>
+                <option value="Hard" class="difficulty-option">🔴 Hard</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Tags Dropdown -->
+    <div class="filter-group">
+        <div class="select-wrapper">
+            <select name="tags" class="filter-select">
+                <option value="">All Tags</option>
+                <option value="Array">📊 Array</option>
+                <option value="String">🔤 String</option>
+                <option value="Graph">📈 Graph</option>
+                <option value="Dynamic Programming">📌 Dynamic Programming</option>
+                <option value="Binary Search">🔍 Binary Search</option>
+                <option value="Hash Table">📑 Hash Map</option>
+                <option value="BackTracking">🔄 BackTracking</option>
+                <option value="Math">➗ Math</option>
+                <option value="DFS">🌳 DFS</option>
+                <option value="BinaryTree">🌲 BinaryTree</option>
+                <option value="Matrix">🔢 Matrix</option>
+                <option value="Stack">📚 Stack</option>
+                <option value="Queue">🚶‍♂️ Queue</option>
+                <option value="Heap">🏗️ Heap</option>
+                <option value="Greedy">💰 Greedy</option>
+                <option value="Two Pointers">↔️ Two Pointers</option>
+                <option value="Sort">🔀 Sort</option>
+                <option value="Bit Manipulation">💡 Bit Manipulation</option>
+                <option value="Topological Sort">📊 Topological Sort</option>
+                <option value="Trie">🌳 Trie</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Filter Button -->
+    <button type="submit" class="filter-btn">
+        <i class="fas fa-filter"></i> Filter
+    </button>
+</form>
+
+
+        <div class="problems-list">
+            <% problems.forEach(problem => { %>
+                <div class="problem-item">
+                    <div class="status <% if (user) {
+                        const solved = user.problemsSolved.find(p => p.problemId.toString() === problem._id.toString());
+                        if (solved && solved.status === 'Success') { %>solved<% } else { %>unsolved<% }
+                    } else { %>login<% } %>">
+                        <% if (user) {
+                            const solved = user.problemsSolved.find(p => p.problemId.toString() === problem._id.toString());
+                            if (solved && solved.status === 'Success') { %>
+                                ✓
+                            <% } else { %>
+                                ✗
+                            <% }
+                        } else { %>
+                            🔒
+                        <% } %>
+                    </div>
+                    <a href="/problems/<%= problem._id %>" class="problem-title">
+                        <%= problem.number %>. <%= problem.title %>
+                    </a>
+                    <div class="tags">
+                        <% problem.categories.forEach(tag => { %>
+                            <span class="tag"><%= tag %></span>
+                        <% }) %>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/slim-select@1.27.1/dist/slimselect.min.js"></script>
+    <script>
+        new SlimSelect({
+            select: '.tag-select',
+            settings: {
+                placeholderText: 'Select Tags',
+                searchPlaceholder: 'Search tags',
+                searchHighlight: true,
+                closeOnSelect: false,
+                contentPosition: 'absolute',
+                showSearch: true
+            }
+        });
+    </script>
+</body>
+</html>

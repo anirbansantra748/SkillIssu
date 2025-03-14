@@ -1,0 +1,52 @@
+<% layout("/layouts/boilerplate") %>
+<div class="container mt-5 text-light">
+  <h1 class="text-center text-uppercase fw-bold">Leaderboard for <%= contest.title %></h1>
+  <div class="leaderboard-container mt-4 p-4 bg-dark rounded shadow-lg">
+    <ol class="list-group list-group-flush">
+      <% winners.forEach((winner, index) => { %>
+        <li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-light border-secondary py-3 shadow-sm">
+          <!-- Avatar and User Info -->
+          <div class="d-flex align-items-center">
+            <i class="fas fa-user-circle fa-3x me-3 <%= index === 0 ? 'text-warning' : index === 1 ? 'text-secondary' : index === 2 ? 'text-danger' : 'text-light' %>"></i>
+            <div>
+              <h5 class="mb-1"><span class="badge <%= index === 0 ? 'bg-warning text-dark' : index === 1 ? 'bg-secondary' : index === 2 ? 'bg-danger' : 'bg-light text-dark' %>">#<%= winner.rank %></span> <%= winner.username %></h5>
+              <p class="mb-0 text-muted">Submission Time: <%= new Date(winner.submissionTime).toLocaleString() %></p>
+            </div>
+          </div>
+          <!-- Trophy Icon -->
+          <i class="fas fa-trophy <%= index === 0 ? 'text-warning' : index === 1 ? 'text-secondary' : index === 2 ? 'text-danger' : 'text-light' %> fa-2x"></i>
+        </li>
+      <% }) %>
+    </ol>
+  </div>
+</div>
+<style>
+  body {
+    background-color: #121212;
+    color: white;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  .leaderboard-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+  }
+  .list-group-item:hover {
+    background-color: #1e1e1e;
+    transform: scale(1.02);
+    transition: all 0.3s ease;
+  }
+  .fa-trophy {
+    transition: transform 0.3s ease;
+  }
+  .fa-trophy:hover {
+    transform: scale(1.2) rotate(-10deg);
+  }
+  .fa-user-circle {
+    transition: transform 0.3s ease;
+  }
+  .fa-user-circle:hover {
+    transform: scale(1.1);
+  }
+</style>

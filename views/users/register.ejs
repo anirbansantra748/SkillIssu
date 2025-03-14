@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Register - SkillIssu</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        body {
+            background: linear-gradient(45deg, #0f2027, #203a43, #2c5364);
+            font-family: 'Orbitron', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .register-container {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(0, 255, 0, 0.5);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+            width: 350px;
+            z-index: 10;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #00ff00, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            color: white;
+            padding-left: 40px;
+            font-size: 1rem;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(0, 255, 0, 0.7);
+        }
+
+        .btn-register {
+            background: linear-gradient(45deg, #00ff00, #00ffff);
+            border: none;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            width: 100%;
+            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+        }
+
+        .btn-register:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 1);
+        }
+
+        .neon-border {
+            border: 2px solid transparent;
+            background: linear-gradient(45deg, #00ff00, #00ffff);
+            background-clip: padding-box;
+        }
+
+        /* Floating Animated Elements */
+        .floating-bubble {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: rgba(0, 255, 0, 0.2);
+            border-radius: 50%;
+            filter: blur(15px);
+            animation: floatUp 4s infinite ease-in-out alternate;
+            z-index: 1;
+        }
+
+        .floating-bubble:nth-child(2) {
+            width: 100px;
+            height: 100px;
+            background: rgba(0, 255, 255, 0.2);
+            top: 20%;
+            left: 60%;
+            animation: floatUp 6s infinite ease-in-out alternate-reverse;
+        }
+
+        .floating-bubble:nth-child(3) {
+            width: 120px;
+            height: 120px;
+            background: rgba(0, 255, 255, 0.3);
+            bottom: 10%;
+            right: 30%;
+            animation: floatUp 5s infinite ease-in-out alternate;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0px) translateX(0px); }
+            100% { transform: translateY(-20px) translateX(10px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-bubble"></div>
+    <div class="floating-bubble"></div>
+    <div class="floating-bubble"></div>
+
+    <div class="register-container">
+        <h2>SkillIssu Register</h2>
+        <p class="text-light">Join us, noobs & pros alike 😎</p>
+        <form action="/users/register" method="POST">
+            <div class="form-group">
+                <i class="fa-solid fa-user input-icon"></i>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-lock input-icon"></i>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-register neon-border">Register</button>
+        </form>
+    </div>
+</body>
+</html>

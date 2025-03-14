@@ -1,0 +1,128 @@
+<% layout("/layouts/boilerplate") %>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<br><br>
+<div class="container mt-5">
+  <div class="row justify-content-center mb-5">
+    <div class="col-md-8">
+      <div class="card contest-card">
+        <div class="card-header text-center contest-header">
+          <h1 class="contest-title"><%= contest.title %></h1>
+        </div>
+        <div class="card-body text-center">
+          <% if (canStart) { %>
+            <form action="/contests/current/start/<%= contest._id %>" method="POST">
+              <button type="submit" class="btn btn-start w-100 py-3">
+                <i class="fas fa-play me-2"></i> Start Contest
+              </button>
+            </form>
+          <% } else { %>
+            <div class="alert alert-warning text-dark">
+              <i class="fas fa-hourglass-half"></i> Next Session Starts Sunday At 7:00 PM
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% if (pastContests.length > 0) { %>
+    <h4 class="text-center mb-4 past-contest-title">⚡ Previous Contests ⚡</h4>
+    <div class="row">
+      <% pastContests.forEach(pastContest => { %>
+        <div class="col-md-4 mb-4">
+          <a href="/contests/<%= pastContest._id %>/pastContest" class="text-decoration-none">
+            <div class="card past-contest-card">
+              <div class="card-body">
+                <h5 class="card-title text-light"><i class="fas fa-trophy me-2 text-light"></i><%= pastContest.title %></h5>
+                <h6 class="contest-date">
+                  <i class="fas fa-calendar-alt me-1"></i>
+                  <%= pastContest.date.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) %>
+                </h6>
+                <p class="card-text"><%= pastContest.description ? pastContest.description.substring(0, 80) : 'No description available' %>...</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+
+<style>
+  body {
+    background-color: #141414;
+    color: #e0e0e0;
+    font-family: "Poppins", Arial, sans-serif;
+  }
+
+  /* Contest Card */
+  .contest-card {
+    background: #1c1c1c;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .contest-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 18px rgba(255, 255, 255, 0.15);
+  }
+
+  .contest-header {
+    background: linear-gradient(135deg, #222222, #333333);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    padding: 1rem;
+    color: #fff;
+    text-shadow: 0px 2px 5px rgba(255, 255, 255, 0.1);
+  }
+
+  /* Start Button */
+  .btn-start {
+    background: linear-gradient(135deg, #4CAF50, #388E3C);
+    border: none;
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(76, 175, 80, 0.4);
+  }
+
+  .btn-start:hover {
+    background: #2E7D32;
+    box-shadow: 0px 4px 15px rgba(76, 175, 80, 0.6);
+  }
+
+  /* Past Contests */
+  .past-contest-title {
+    font-weight: bold;
+    color: #f1c40f;
+  }
+
+  .past-contest-card {
+    background: #1c1c1c;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0px 4px 12px rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .past-contest-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.1);
+  }
+
+  .contest-date {
+    font-size: 0.9rem;
+    color: #f1c40f;
+  }
+
+  .card-title {
+    font-weight: bold;
+  }
+
+  .card-text {
+    color: #bbb;
+  }
+</style>
