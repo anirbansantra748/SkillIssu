@@ -48,6 +48,8 @@ h3, h5 {
 .btn {
   margin-right: 10px;
   border-radius: 8px;
+  width: 6rem;
+  height: 2rem;
   transition: all 0.3s ease-in-out;
 }
 
@@ -132,19 +134,10 @@ select.form-control:focus {
   box-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
 }
 
-/* 📱 Responsive Design */
-@media (max-width: 768px) {
-  .row {
-    flex-direction: column;
-  }
-  .col-md-5, .col-md-7 {
-    width: 100%;
-  }
-}
 
   </style>
 </head>
-<body id="problem-page">
+<body id="problem-page" class="mt-5">
   <div class="container-fluid">
     <div class="row">
       <!-- Left Side: Problem Details -->
@@ -176,17 +169,17 @@ select.form-control:focus {
         <!-- Action Buttons -->
         <div class="d-flex mt-3">
           <% if(user.isAdmin){ %>
-            <a href="/problems/<%= problem._id %>/edit" class="btn btn-warning me-2">
-              <i class="fa-solid fa-edit"></i>
+            <a href="/problems/<%= problem._id %>/edit" class="btn btn-warning">
+              edit <i class="fa-solid fa-edit"></i>
             </a>
             <form action="/problems/<%= problem._id %>?_method=DELETE" method="POST">
               <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this problem?');">
-                <i class="fa-solid fa-trash"></i>
+               Delete <i class="fa-solid fa-trash"></i>
               </button>
             </form>
           <% } %>
-          <a href="/comments/<%= problem._id %>/discuss" class="btn btn-info ms-2">
-            <i class="fa-solid fa-comments"></i> Discuss
+          <a href="/comments/<%= problem._id %>/discuss" class="btn btn-info ms-2 ">
+            <i class="fa-solid fa-comments"></i>
           </a>
           <form id="like-form" action="/problems/<%= problem._id %>/like" method="POST">
             <button type="submit" id="like-button" class="btn <%= user.likedProblems.includes(problem._id) ? 'btn-success' : 'btn-outline-info' %>">
