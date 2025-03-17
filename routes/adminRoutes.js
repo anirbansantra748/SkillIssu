@@ -11,7 +11,7 @@ const { isLoggedIn } = require('../middlewares/isLoggedIn');
 
 // Show passkey input form
 router.get('/login',isLoggedIn, (req, res) => {
-    res.render('admin/passkey', { error: "" });
+    res.render('passkey', { error: "" });
 });
 
 // Apply passkey authentication

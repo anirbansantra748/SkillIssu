@@ -100,6 +100,8 @@ ${code}
         if (isPassed) {
             // Increase user's points
             user.points += 1;
+            console.log("problem tags: " + problem.tags);
+            // console.log("problem dificulty"+ problem.difficulty);
 
             // Find if user has solved this problem before
             let solvedBefore = user.problemsSolved.find(p => p.problemId.equals(problem._id));
@@ -109,9 +111,10 @@ ${code}
                 user.problemsSolved.push({ problemId: problem._id, submissions: 1, status: "Success" });
 
                 // Update stats based on problem difficulty
-                if (problem.difficulty === "Easy") user.stats.easy += 1;
-                if (problem.difficulty === "Medium") user.stats.medium += 1;
-                if (problem.difficulty === "Hard") user.stats.hard += 1;
+                if (problem.tags === "Easy") user.stats.easy += 1;
+                if (problem.tags === "Medium") user.stats.medium += 1;
+                if (problem.tags === "Hard") user.stats.hard += 1;
+
             } else {
                 // Increment submission count and update status
                 solvedBefore.submissions += 1;

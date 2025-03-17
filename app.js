@@ -95,17 +95,6 @@ app.use((req, res, next) => {
     res.status(404).render('error', { error: { status: 404, message: "Page Not Found" } });
 });
 
-app.use((req, res, next) => {
-    res.setHeader("Content-Security-Policy",
-        "default-src 'self'; " +
-        "script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://unpkg.com; " +
-        "style-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com; " +
-        "font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; " +
-        "connect-src 'self';"
-    );
-    next();
-});
-
 
 // General Error Handler
 app.use((err, req, res, next) => {

@@ -41,9 +41,10 @@ module.exports.logoutUser = (req, res, next) => {
 
 module.exports.seeProfile = wrapAsync(async (req, res, next) => {
     try {
-        let user = req.user;
+        let user = await User.findById(req.user._id).lean(); // Ensure data is fully fetched
 
-        // Fetch problem details for each solved problem
+        console.log("User Stats:", user.stats); // Debugging log
+
         let problemsSolved = await Promise.all(user.problemsSolved.map(async (solved) => {
             let problem = await Problem.findById(solved.problemId);
             return {
@@ -53,14 +54,15 @@ module.exports.seeProfile = wrapAsync(async (req, res, next) => {
         }));
 
         res.render('users/profile', {
-            username: user.username,  // Pass username
+            user,
+            username: user.username,
             profileLinks: user.profileLinks,
-            stats: user.stats,
+            stats: user.stats,  // Explicitly pass stats
             points: user.points,
             totalSubmissions: user.totalSubmissions,
             problemsSolved,
             likedProblems: user.likedProblems,
-            Country: user.Country // Pass Country correctly
+            Country: user.Country
         });
     } catch (err) {
         next(err);
